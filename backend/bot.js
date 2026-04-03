@@ -5,6 +5,15 @@ let db = null;
 
 const sessions = {};
 
+function isAdmin(userId) {
+  const admins = (process.env.TELEGRAM_ADMIN_IDS || '')
+    .split(',')
+    .map(id => id.trim())
+    .filter(Boolean);
+  if (admins.length === 0) return String(userId) === String(process.env.TELEGRAM_CHAT_ID);
+  return admins.includes(String(userId));
+}
+
 function init(database) {
   db = database;
   const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -82,6 +91,9 @@ function registerHandlers() {
   });
 
   bot.onText(/\/setstatus (\d+) (.+)/, (msg, match) => {
+    if (!isAdmin(msg.from.id)) {
+      return bot.sendMessage(msg.chat.id, '⛔ Тільки адміністратори можуть змінювати статус тварин.');
+    }
     const id = parseInt(match[1]);
     const status = match[2].trim();
     const allowed = ['Шукає родину', 'На адаптації', 'Прилаштована'];
