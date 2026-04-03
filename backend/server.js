@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
-const Anthropic = require('@anthropic-ai/sdk');
+const Groq = require('groq-sdk');
 
 const db = require('./db');
 const { init: initBot, notifyAdoption, syncPetsJson } = require('./bot');
@@ -35,9 +35,9 @@ const upload = multer({
   }
 });
 
-let anthropic = null;
+let groq = null;
 if (process.env.ANTHROPIC_API_KEY && process.env.ANTHROPIC_API_KEY !== 'your_anthropic_api_key_here') {
-  anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  groq = new Groq({ apiKey: process.env.ANTHROPIC_API_KEY });
 }
 
 
@@ -199,23 +199,25 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'messages array required' });
   }
 
-  if (!anthropic) {
+  if (!groq) {
     return res.json({
       reply: 'Вибачте, AI-консультант зараз недоступний. Зв\'яжіться з нами: dniproanimals@ukr.net або +380 (99) 000-00-00'
     });
   }
 
   try {
-    const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const response = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       max_tokens: 512,
-      system: SYSTEM_PROMPT,
-      messages: messages.slice(-10) 
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...messages.slice(-10)
+      ]
     });
 
-    res.json({ reply: response.content[0].text });
+    res.json({ reply: response.choices[0].message.content });
   } catch (e) {
-    console.error('[Chat] Anthropic error:', e.message);
+    console.error('[Chat] Groq error:', e.message);
     res.status(500).json({ error: 'AI service unavailable' });
   }
 });
@@ -242,6 +244,6 @@ initBot(db);
 app.listen(PORT, () => {
   console.log(`\n🐾 Dnipro Animals server running at http://localhost:${PORT}`);
   console.log(`   API: http://localhost:${PORT}/api/pets`);
-  console.log(`   AI Chat: ${anthropic ? 'enabled' : 'disabled (no ANTHROPIC_API_KEY)'}`);
+  console.log(`   AI Chat: ${groq ? 'enabled (Groq)' : 'disabled (no API key)'}`);
   console.log(`   Telegram Bot: ${process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_BOT_TOKEN !== 'your_bot_token_here' ? 'enabled' : 'disabled'}`);
 });
