@@ -32,20 +32,34 @@
         </div>
 
         <div id="adoptionFormContainer" style="display: none;">
-            <button class="btn-adopt" id="backToInfo">← Назад</button>
-            <iframe id="adoptionFormIframe"
-                src="https://forms.gle/DZavw18pLzFhe3q77" width="100%"
-                height="500" frameborder="0" marginheight="0" marginwidth="0">
-                Завантаження...
-            </iframe>
+            <button class="btn-back" id="backToInfo">← Назад</button>
+            <h3 class="adoption-form-title">Заявка на адопцію: <span id="adoptionPetName"></span></h3>
+            <form id="adoptionForm" class="adoption-form">
+                <input type="hidden" id="adoptionPetId" name="pet_id">
+                <div class="form-group">
+                    <label>Ваше ім'я *</label>
+                    <input type="text" name="applicant_name" required placeholder="Іваненко Іван Іванович">
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" name="phone" placeholder="+380 99 000-00-00">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Розкажіть про себе</label>
+                    <textarea name="message" rows="4" placeholder="Де живете, чи є досвід з тваринами, умови утримання..."></textarea>
+                </div>
+                <button type="submit" class="btn-adopt">Надіслати заявку 🐾</button>
+                <p id="adoptionSuccess" class="adoption-success" style="display:none;">
+                    Дякуємо! Волонтери зв'яжуться з вами протягом 24 годин. 💛
+                </p>
+            </form>
         </div>
     </div>
 </div>
-
-    <div class="fixed-button-group">
-        <a href="#" class="btn-shelter">Допомогти</a>
-        <a href="#" class="btn-shelter">Стати волонтером</a>
-    </div>
 
     <section class="parallax-container">
         <div class="layer layer-3" data-speed="0.2"></div>
@@ -171,75 +185,23 @@
         <div class="container">
             <h1 class="pets-main-title reveal">Наші пухнастики</h1>
     
-            <div class="pet-category reveal " id="cats-category">
+            <div class="pet-category reveal" id="cats-category">
                 <div class="category-header">
                     <img src="img/cat.png" alt="Іконка кота" class="category-icon">
                     <h2>Котики</h2>
                 </div>
-    
-                
-                <div class="pets-grid">
-                    <a href="#" class="pet-card" data-name="" data-gender="" data-age="" 
-                        data-temper="" data-vax=""
-                        data-desc="">
-                        <img src="" alt="Кіт1" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-
-                    <a href="pets/cat2.html" class="pet-card">
-                        <img src="" alt="Кіт2" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-                    <a href="pets/cat3.html" class="pet-card">
-                        <img src="" alt="Кіт3" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-                    <a href="pets/cat4.html" class="pet-card">
-                        <img src="" alt="Кіт4" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
+                <div class="pets-grid" id="cats-grid">
+                    <div class="pets-loading">Завантаження...</div>
                 </div>
             </div>
-    
+
             <div class="pet-category reveal" id="dogs-category">
                 <div class="category-header">
                     <img src="img/dog.png" alt="Іконка собаки" class="category-icon">
                     <h2>Песики</h2>
                 </div>
-    
-                <div class="pets-grid">
-                    <a href="pets/dog1.html" class="pet-card">
-                        <img src="" alt="Пес1" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-                    <a href="pets/dog2.html" class="pet-card">
-                        <img src="" alt="Пес2" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-                    <a href="pets/dog3.html" class="pet-card">
-                        <img src="" alt="Пес3" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
-                    <a href="pets/dog4.html" class="pet-card">
-                        <img src="" alt="Пес4" class="pet-image">
-                        <div class="pet-info-overlay">
-                            <h3 class="pet-name">NAME</h3>
-                        </div>
-                    </a>
+                <div class="pets-grid" id="dogs-grid">
+                    <div class="pets-loading">Завантаження...</div>
                 </div>
             </div>
         </div>
@@ -296,11 +258,27 @@
 </div>
     
     <div id="aiModal" class="modal">
-        <div class="modal-content side-modal">
+        <div class="modal-content side-modal ai-modal-content">
             <span class="close-modal" onclick="closeAllModals()">&times;</span>
-            <h2 class="modal-title">Консультація</h2>
+            <h2 class="modal-title">AI-консультант 🤖</h2>
             <div id="ai-chat-container">
-                <p style="text-align: center; color: #888; margin-top: 50px;">Чат з ШІ-агентом розробляється... 🤖</p>
+                <div id="chat-messages">
+                    <div class="chat-message bot">
+                        <div class="chat-bubble">
+                            Привіт! Я — консультант притулку Dnipro Animals 🐾<br>
+                            Допоможу знайти ідеального пухнастика або відповім на питання про адопцію.
+                        </div>
+                    </div>
+                </div>
+                <div id="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Напишіть повідомлення..." maxlength="500">
+                    <button id="chat-send" aria-label="Надіслати">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
