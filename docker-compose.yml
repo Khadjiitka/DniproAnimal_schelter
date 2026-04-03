@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  shelter:
+    build: .
+    container_name: dniproanimals
+    ports:
+      - "3000:3000"
+    volumes:
+      - shelter_data:/app/data
+      - shelter_uploads:/app/backend/uploads
+    env_file:
+      - backend/.env
+    restart: unless-stopped
+
+volumes:
+  shelter_data:
+  shelter_uploads:

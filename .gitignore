@@ -1,0 +1,9 @@
+backend/.env
+backend/uploads/
+data/
+node_modules/
+backend/node_modules/
+*.db
+*.db-shm
+*.db-wal
+backend/package-lock.json

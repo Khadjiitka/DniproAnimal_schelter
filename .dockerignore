@@ -1,0 +1,8 @@
+backend/node_modules
+node_modules
+data
+backend/uploads
+backend/.env
+*.db
+*.db-shm
+*.db-wal
