@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dnipro Animals - Притулок для тварин</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<div id="petModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+
+        <div class="modal-body" id="modalInfoPage">
+            <img id="modalImg" src="" alt="Питомець">
+            <div class="modal-text">
+                <h2 id="modalName">Ім'я</h2>
+                <div class="pet-details">
+                    <p><strong>Стать:</strong> <span id="modalGender">---</span></p>
+                    <p><strong>Вік:</strong> <span id="modalAge">---</span></p>
+                    <p><strong>Щеплення:</strong> <span id="modalVax">---</span></p>
+                    <p><strong>Статус:</strong> <span id="modalTemper">---</span></p>
+                </div>
+                <p class="modal-desc" id="modalDesc">Опис...</p>
+                <button class="btn-adopt" id="showFormBtn">Забрати пухнастика</button>
+            </div>
+        </div>
+
+        <div id="adoptionFormContainer" style="display: none;">
+            <button class="btn-adopt" id="backToInfo">← Назад</button>
+            <iframe id="adoptionFormIframe"
+                src="https://forms.gle/DZavw18pLzFhe3q77" width="100%"
+                height="500" frameborder="0" marginheight="0" marginwidth="0">
+                Завантаження...
+            </iframe>
+        </div>
+    </div>
+</div>
+
+    <div class="fixed-button-group">
+        <a href="#" class="btn-shelter">Допомогти</a>
+        <a href="#" class="btn-shelter">Стати волонтером</a>
+    </div>
+
+    <section class="parallax-container">
+        <div class="layer layer-3" data-speed="0.2"></div>
+
+        <div class="layer layer-2" data-speed="0.4"></div>
+
+        <div class="layer layer-1" data-speed="0.6"></div>
+
+        <h1 class="main-title" id="title">Dnipro Animals</h1>
+
+        <div class="fade-overlay"></div>
+    </section>
+
+    <section class="content-section" id="about-us">
+        <div class="container">
+            <div class="about-wrapper">
+            
+                <div class="about-image-col">
+                    <img src="img/logo_dniproanimals.png" alt="logo_dniproanimals" class="about-logo" >
+                </div>
+            
+                <div class="about-text-col">
+                    <h2 class="reveal">Про нас</h2>
+                    <p class="reveal">
+                        «Dnipro Animals» — це не просто волонтерська організація. Це острівець безпеки, любові та надії для тих, хто
+                        опинився на
+                        вулиці, втратив дім або ніколи його не мав. Ми рятуємо, лікуємо та знаходимо нові родини для безпритульних
+                        тварин у
+                        Дніпрі. <br>Наша місія - дати другий шанс кожному серцю, що б’ється.
+                    </p>
+                    
+                </div>
+            
+            </div>
+                    <section class="stats-section reveal">
+                        <div class="container stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">🐕</div>
+                                <p>Регулювання кількості бездомних тварин</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🐾</div>
+                                <p>Пошук нових власників для вихованців нашого притулку</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">💬</div>
+                                <p>Консультації з питань вибору, вирощення та виховання тваринок</p>
+                            </div>
+                        </div>
+                    </section>
+
+            <h2 class="reveal">Як ми працюємо</h2>
+            <p class="reveal">
+                Усі наші підопічні проходять обов'язковий ветеринарний огляд та адаптацію. 
+                Ми створюємо умови, максимально наближені до домашніх, 
+                щоб перехід у нову сім'ю був легким і радісним. Кожен пухнастий друг чекає на свою людину.
+            </p>
+            <div class="pets-grid">
+                <div class="pet-card reveal"> <img src="img/pet1.jpeg" alt="pet1" class="pet-image ">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name"></h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/vet1.jpeg" alt="vet1" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name"></h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pet2.jpeg" alt="pet2" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name"></h3>
+                    </div>
+                </div>
+            </div>
+            <p class="reveal">
+                Щодня наші ми піклуємося про сотні собак і котів. Хтось із них активний і грайливий, хтось - тихий і
+                розважливий, але кожен із них унікальний. Ми запрошуємо вас познайомитися з нашими вихованцями ближче. Можливо, саме
+                сьогодні ви зустрінете свого найкращого друга.
+            </p>
+
+            <h2 class="reveal">Наша команда</h2>
+
+            <div class="pets-grid">
+                <div class="pet-card reveal"> <img src="img/pers1.jpg" alt="Волонтер" class="pet-image"> 
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pers2.jpg" alt="Волонтер" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pers3.jpg" alt="Волонтер" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pers4.jpg" alt="Волонтер" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pers5.jpg" alt="Волонтер" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+                <div class="pet-card reveal"> <img src="img/pers6.jpg" alt="Волонтер" class="pet-image">
+                    <div class="pet-info-overlay">
+                        <h3 class="pet-name">Ім'я волонтера</h3>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <section class="pets-section">
+        <div class="container">
+            <h1 class="pets-main-title reveal">Наші пухнастики</h1>
+    
+            <div class="pet-category reveal " id="cats-category">
+                <div class="category-header">
+                    <img src="img/cat.png" alt="Іконка кота" class="category-icon">
+                    <h2>Котики</h2>
+                </div>
+    
+                
+                <div class="pets-grid">
+                    <a href="#" class="pet-card" data-name="" data-gender="" data-age="" 
+                        data-temper="" data-vax=""
+                        data-desc="">
+                        <img src="" alt="Кіт1" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+
+                    <a href="pets/cat2.html" class="pet-card">
+                        <img src="" alt="Кіт2" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                    <a href="pets/cat3.html" class="pet-card">
+                        <img src="" alt="Кіт3" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                    <a href="pets/cat4.html" class="pet-card">
+                        <img src="" alt="Кіт4" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="pet-category reveal" id="dogs-category">
+                <div class="category-header">
+                    <img src="img/dog.png" alt="Іконка собаки" class="category-icon">
+                    <h2>Песики</h2>
+                </div>
+    
+                <div class="pets-grid">
+                    <a href="pets/dog1.html" class="pet-card">
+                        <img src="" alt="Пес1" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                    <a href="pets/dog2.html" class="pet-card">
+                        <img src="" alt="Пес2" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                    <a href="pets/dog3.html" class="pet-card">
+                        <img src="" alt="Пес3" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                    <a href="pets/dog4.html" class="pet-card">
+                        <img src="" alt="Пес4" class="pet-image">
+                        <div class="pet-info-overlay">
+                            <h3 class="pet-name">NAME</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed-button-group">
+        <a href="javascript:void(0)" class="btn-shelter" onclick="openModal('donateModal')">Допомогти</a>
+        <a href="javascript:void(0)" class="btn-shelter" onclick="openModal('volunteerModal')">Стати волонтером</a>
+        <a href="javascript:void(0)" class="btn-shelter btn-ai" onclick="openModal('aiModal')">Консультація (AI)</a>
+    </div>
+    
+    <div id="donateModal" class="modal">
+        <div class="modal-content side-modal">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="modal-title">Підтримати притулок</h2>
+            <div class="donate-grid">
+                <div class="donate-card">
+                    <h3>IBAN (Рахунок)</h3>
+                    <p>UA 00 0000 0000 0000 0000 0000 000</p>
+                    <button class="btn-copy" onclick="copyText('UA 000...')">Копіювати</button>
+                </div>
+                <div class="donate-card">
+                    <h3>Monobank (Банка)</h3>
+                    <a href="https://send.monobank.ua/..." target="_blank" class="btn-adopt">Перейти до банки</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<div id="volunteerModal" class="modal">
+    <div class="modal-content side-modal">
+        <span class="close-modal" onclick="closeAllModals()">&times;</span>
+        <h2 class="modal-title">Стати волонтером</h2>
+
+        <div class="volunteer-info">
+            <p>Допоможіть нам розширювати базу підопічних! <br> Ми шукаємо активних людей, які готові додавати нових
+                тварин на наш сайт.</p>
+
+            <div class="bot-instruction">
+                <h3>Як це працює?</h3>
+                <ul class="volunteer-list">
+                    <li>📸 Зробіть гарне фото тваринки</li>
+                    <li>📝 Складіть короткий опис та вкажіть дані</li>
+                    <li>🐾 Заповніть форму</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBW2JkE8QCvzCq8UqtRsLX7FIFzQOSbLLV342NA58p3nyc4Q/viewform"
+            target="_blank" class="btn-adopt" style="text-decoration: none; display: inline-block; text-align: center;">
+            Відкрити форму
+        </a>
+    </div>
+</div>
+    
+    <div id="aiModal" class="modal">
+        <div class="modal-content side-modal">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="modal-title">Консультація</h2>
+            <div id="ai-chat-container">
+                <p style="text-align: center; color: #888; margin-top: 50px;">Чат з ШІ-агентом розробляється... 🤖</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="stats-section reveal">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏠</div>
+                <h2 class="stat-number" data-target="300">0</h2>
+                <p>Знайшли дім</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🤝</div>
+                <h2 class="stat-number" data-target="6">0</h2>
+                <p>Волонтерів</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">❤️</div>
+                <h2 class="stat-number" data-target="900">0</h2>
+                <p>Врятованих жизнів</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-logo-col">
+                <img src="img/logo_dniproanimals.png" alt="Dnipro Animals Logo" class="footer-logo">
+            </div>
+            <div class="footer-col">
+                <h3>Про проєкт</h3>
+                <ul>
+                    <li><a href="#about-us">Про нас</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal('donateModal')">Допомогти фінансово</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal('volunteerModal')">Стати волонтером</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal('aiModal')">Консультація (AI)</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-col">
+                <h3>Наші підопічні</h3>
+                <ul>
+                    <li><a href="#cats-category">Котики</a></li>
+                    <li><a href="#dogs-category">Песики</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-col contact-item">
+                <h3>Зв'язок з нами</h3>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Insta"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
+                    <a href="https://t.me/your_volunteer_bot"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG"></a>
+                </div>
+                <p>+380 (99) 000-00-00</p>
+                <p>dniproanimals@ukr.net</p>
+                <p class="work-time">Приймаємо дзвінки з 10:00 до 20:00</p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <div class="container" >
+                <p>©2019-2026 «Dnipro Animals»</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
