@@ -1,4 +1,4 @@
-# Dnipro Animals — Сайт притулку для тварин
+# Dnipro Animals - Сайт притулку для тварин
 
 Веб-сайт для волонтерської організації «Dnipro Animals» (м. Дніпро).
 Розроблено на хакатоні KUT 2026 за 24 години.
@@ -9,20 +9,20 @@
 
 ### Фронтенд (index.html / index.css / index.js)
 - Паралакс-шапка, секція «Про нас», команда, статистика, футер
-- Динамічне завантаження тварин: спочатку запит до `/api/pets`, при недоступності — fallback на `pets.json`
+- Динамічне завантаження тварин: спочатку запит до `/api/pets`, при недоступності - fallback на `pets.json`
 - Картки тварин з модальним вікном (фото, стать, вік, вакцинація, опис)
-- Форма заявки на адопцію прямо на сайті — дані зберігаються в БД
+- Форма заявки на адопцію прямо на сайті - дані зберігаються в БД
 - Вбудований AI-чат з анімацією «три крапки» під час відповіді
 - Модальні вікна: донат (IBAN + Monobank), стати волонтером, AI-консультант
 - Адаптивна верстка (мобільні, планшети, десктоп)
 
 ### Бекенд (backend/)
-- **Express API** — CRUD для тварин, заявки на адопцію, AI-чат, вебхук для Make.com
-- **SQLite** — база даних через `better-sqlite3`, автоматичний seed із `pets.json` при першому запуску
-- **Telegram-бот** — волонтери керують притулком прямо з телефону
-- **Claude Haiku** — AI-консультант на сторінці, допомагає обрати тварину
+- **Express API** - CRUD для тварин, заявки на адопцію, AI-чат, вебхук для Make.com
+- **SQLite** - база даних через `better-sqlite3`, автоматичний seed із `pets.json` при першому запуску
+- **Telegram-бот** - волонтери керують притулком прямо з телефону
+- **Claude Haiku** - AI-консультант на сторінці, допомагає обрати тварину
 
-### Telegram-бот — команди для волонтерів
+### Telegram-бот - команди для волонтерів
 
 | Команда | Дія |
 |---|---|
@@ -46,7 +46,7 @@
 Альтернативний спосіб для волонтерів без технічних навичок:
 
 ```
-Google Форма → Make.com → POST /api/webhook/makepet → БД + pets.json
+Google Форма -> Make.com -> POST /api/webhook/makepet -> БД + pets.json
 ```
 
 Поля форми: `name`, `type` (cat/dog), `age`, `gender`, `description`, `photo_url`, `vaccinated`
@@ -63,8 +63,7 @@ DniproAnimal_schelter/
 │   ├── bot.js           Telegram-бот
 │   ├── uploads/         Завантажені фото (у .gitignore)
 │   ├── package.json
-│   ├── .env             Ваші ключі (у .gitignore)
-│   └── .env.example     Шаблон
+│   └── .env             Ваші ключі (у .gitignore) 
 ├── img/                 Статичні зображення
 ├── data/                SQLite файл (у .gitignore)
 ├── index.html
@@ -83,7 +82,7 @@ DniproAnimal_schelter/
 ### 1. Клонуйте репозиторій
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DniproAnimal_schelter.git
+git clone https://github.com/Khadjiitka/DniproAnimal_schelter.git
 cd DniproAnimal_schelter
 ```
 
