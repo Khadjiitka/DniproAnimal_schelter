@@ -6,3 +6,4 @@ backend/node_modules/
 *.db
 *.db-shm
 *.db-wal
+backend/package-lock.json
