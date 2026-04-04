@@ -1,42 +1,91 @@
-# Dnipro Animals - Сайт притулку для тварин
-
-Веб-сайт для волонтерської організації «Dnipro Animals» (м. Дніпро).
-Розроблено на хакатоні KUT 2026 за 24 години.
+<p align="center">
+  <img src="img/logo_dniproanimals.png" width="150" alt="Dnipro Animals Logo">
+  <h1 align="center">🐾 Dnipro Animals Shelter</h1>
+  <p align="center">
+    <i>Веб-платформа для автоматизації притулку, створена на хакатоні <b>CUT 2026</b></i>
+  </p>
+</p>
 
 ---
 
-## Що зроблено
+##  Технологічний стек
 
-### Фронтенд (index.html / index.css / index.js)
-- Паралакс-шапка, секція «Про нас», команда, статистика, футер
-- Динамічне завантаження тварин: спочатку запит до `/api/pets`, при недоступності - fallback на `pets.json`
-- Картки тварин з модальним вікном (фото, стать, вік, вакцинація, опис)
-- Форма заявки на адопцію прямо на сайті - дані зберігаються в БД
-- Вбудований AI-чат з анімацією «три крапки» під час відповіді
-- Модальні вікна: донат (IBAN + Monobank), стати волонтером, AI-консультант
-- Адаптивна верстка (мобільні, планшети, десктоп)
+<table align="center">
+  <tr>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Backend</b></td>
+    <td align="center"><b>Tools & AI</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=flat&logo=html5&logoColor=white"> <br>
+      <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white"> <br>
+      <img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=flat&logo=javascript&logoColor=black">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white"> <br>
+      <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=flat&logo=express&logoColor=white"> <br>
+      <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=flat&logo=sqlite&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/Claude_Haiku-D1913C?style=flat"> <br>
+      <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white"> <br>
+      <img src="https://img.shields.io/badge/Telegram_Bot-2CA5E0?style=flat&logo=telegram&logoColor=white">
+    </td>
+  </tr>
+</table>
 
-### Бекенд (backend/)
-- **Express API** - CRUD для тварин, заявки на адопцію, AI-чат, вебхук для Make.com
-- **SQLite** - база даних через `better-sqlite3`, автоматичний seed із `pets.json` при першому запуску
-- **Telegram-бот** - волонтери керують притулком прямо з телефону
-- **Claude Haiku** - AI-консультант на сторінці, допомагає обрати тварину
+---
 
-### Telegram-бот - команди для волонтерів
+##  Ключові особливості
 
-| Команда | Дія |
-|---|---|
+* Розумний підбір: Інтегрований AI-консультант на базі **Claude Haiku**, що допомагає обрати улюбленця за характером та способом життя.
+* Оперативність волонтерів: Керування базою притулку через Telegram-бот: додавання тварини та зміна статусів за лічені секунди.
+* Гібридна стійкість: Сайт використовує систему **Auto-Fallback** — якщо сервер недоступний, дані підтягуються зі статичного `pets.json`.
+* Безшовної інтеграція: Вебхуки для **Make.com** дозволяють автоматично приймати дані з Google Forms у базу даних сайту.
+
+---
+
+##  Що реалізовано
+
+###  Клієнтська частина
+- **Visuals:** Паралакс-ефекти, скляна морфічна верстка (Glassmorphism), плавні анімації.
+- **Масштабованість:** Повністю адаптивний дизайн (від смартфонів до 4K моніторів).
+- **Interactive:** Модальні вікна з детальними анкетами тварин, вакцинацією та історією.
+- **Donation System:** Швидкий доступ до реквізитів (IBAN, Monobank) у два кліки.
+
+### Серверна частина
+- **REST API:** Повний цикл CRUD для керування контентом.
+- **Database:** SQLite з автоматичною ініціалізацією та синхронізацією зі статичними файлами.
+- **Security:** Валідація даних та екологічне середовище в Docker-контейнерах.
+
+---
+
+##  Telegram-бот — команди для волонтерів
+
+| Команда | Функціонал |
+| :--- | :--- |
 | `/start` | Привітання та список команд |
-| `/list` | Переглянути всіх тварин із БД |
-| `/addpet` | Додати нову тварину (покроковий діалог із фото) |
-| `/setstatus <id> <статус>` | Змінити статус тварини |
-| `/adoptions` | Нові заявки на адопцію |
+| `/list` | Швидкий огляд усіх мешканців притулку |
+| `/addpet` | Додавання нової анкети з фото |
+| `/setstatus` | Моментальна зміна статусу (наприклад: *Прилаштована*) |
+| `/adoptions` | Перегляд нових запитів від потенційних власників |
 
-Доступні статуси: `Шукає родину` · `На адаптації` · `Прилаштована`
+---
 
-```
-/setstatus 3 Прилаштована
-```
+##  Структура репозиторію
+
+```bash
+DniproAnimal_schelter/
+├── backend/               # Серверна логіка (Express, DB, Bot)
+├── img/                   # Оптимізована статика (лого, банери)
+├── index.html             # Головна сторінка
+├── index.css              # Стилі з використанням CSS-змінних
+├── index.js               # Клієнтська логіка та AI-інтеграція
+├── pets.json              # База-дублер для статичного хостингу
+└── docker-compose.yml     # Конфігурація для швидкого розгортання
+
+
 
 ### pets.json
 Файл автоматично синхронізується з БД при кожному записі.
@@ -45,44 +94,20 @@
 ### Схема Make.com (Google Forms → сайт)
 Альтернативний спосіб для волонтерів без технічних навичок:
 
-```
-Google Форма -> Make.com -> POST /api/webhook/makepet -> БД + pets.json
-```
+Google Форма → Make.com → POST /api/webhook/makepet → БД + pets.json
 
 Поля форми: `name`, `type` (cat/dog), `age`, `gender`, `description`, `photo_url`, `vaccinated`
 
----
-
-## Структура проєкту
-
-```
-DniproAnimal_schelter/
-├── backend/
-│   ├── server.js        Express API
-│   ├── db.js            SQLite + seed із pets.json
-│   ├── bot.js           Telegram-бот
-│   ├── uploads/         Завантажені фото (у .gitignore)
-│   ├── package.json
-│   └── .env             Ваші ключі (у .gitignore) 
-├── img/                 Статичні зображення
-├── data/                SQLite файл (у .gitignore)
-├── index.html
-├── index.css
-├── index.js
-├── pets.json            Дані тварин (синхронізується з БД)
-├── Dockerfile
-├── docker-compose.yml
-└── README.md
 ```
 
 ---
 
-## Запуск через Docker
+## Запуск через Docker 🐋
 
 ### 1. Клонуйте репозиторій
 
 ```bash
-git clone https://github.com/Khadjiitka/DniproAnimal_schelter.git
+git clone https://github.com/YOUR_USERNAME/DniproAnimal_schelter.git
 cd DniproAnimal_schelter
 ```
 
