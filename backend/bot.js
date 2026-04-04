@@ -40,6 +40,7 @@ function registerHandlers() {
       `/list — список тварин\n` +
       `/addpet — додати нову тварину\n` +
       `/setstatus — змінити статус тварини\n` +
+      `/deletepet — видалити тварину (адмін)\n` +
       `/adoptions — нові заявки на адопцію\n` +
       `/help — допомога`,
       { parse_mode: 'Markdown' }
@@ -53,6 +54,7 @@ function registerHandlers() {
       `*/addpet* — додати нову тварину (покроково)\n` +
       `*/setstatus <id> <статус>* — змінити статус\n` +
       `  Статуси: \`Шукає родину\`, \`На адаптації\`, \`Прилаштована\`\n` +
+      `*/deletepet <id>* — ❌ видалити тварину (тільки адмін)\n` +
       `*/adoptions* — список нових заявок\n`,
       { parse_mode: 'Markdown' }
     );
@@ -109,6 +111,62 @@ function registerHandlers() {
     }
     syncPetsJson();
     bot.sendMessage(msg.chat.id, `✅ Статус тварини #${id} змінено на: *${status}*`, { parse_mode: 'Markdown' });
+  });
+
+  bot.onText(/\/deletepet(?: (\d+))?/, (msg, match) => {
+    if (!isAdmin(msg.from.id)) {
+      return bot.sendMessage(msg.chat.id, '⛔ Тільки адміністратори можуть видаляти тварин.');
+    }
+    const id = match[1] ? parseInt(match[1]) : null;
+    if (!id) {
+      return bot.sendMessage(msg.chat.id, '❌ Вкажіть ID тварини: `/deletepet <id>`', { parse_mode: 'Markdown' });
+    }
+    const pet = db.prepare('SELECT * FROM pets WHERE id = ?').get(id);
+    if (!pet) {
+      return bot.sendMessage(msg.chat.id, `❌ Тварину з ID ${id} не знайдено.`);
+    }
+    bot.sendMessage(msg.chat.id,
+      `⚠️ Ви справді хочете видалити *${pet.name}* (ID: ${id})?\nЦю дію не можна скасувати.`,
+      {
+        parse_mode: 'Markdown',
+        reply_markup: {
+          inline_keyboard: [[
+            { text: '✅ Так, видалити', callback_data: `delete_confirm_${id}` },
+            { text: '❌ Скасувати', callback_data: `delete_cancel_${id}` }
+          ]]
+        }
+      }
+    );
+  });
+
+  bot.on('callback_query', (query) => {
+    const data = query.data;
+    const chatId = query.message.chat.id;
+    const messageId = query.message.message_id;
+
+    if (data?.startsWith('delete_confirm_')) {
+      if (!isAdmin(query.from.id)) {
+        return bot.answerCallbackQuery(query.id, { text: '⛔ Тільки адміністратори!' });
+      }
+      const id = parseInt(data.replace('delete_confirm_', ''));
+      const pet = db.prepare('SELECT name FROM pets WHERE id = ?').get(id);
+      if (!pet) {
+        bot.editMessageText(`❌ Тварину з ID ${id} вже не існує.`, { chat_id: chatId, message_id: messageId });
+        return bot.answerCallbackQuery(query.id);
+      }
+      db.prepare('DELETE FROM pets WHERE id = ?').run(id);
+      syncPetsJson();
+      bot.editMessageText(`✅ Тварину *${pet.name}* (ID: ${id}) видалено з бази.`, {
+        chat_id: chatId,
+        message_id: messageId,
+        parse_mode: 'Markdown'
+      });
+      bot.answerCallbackQuery(query.id, { text: 'Видалено' });
+
+    } else if (data?.startsWith('delete_cancel_')) {
+      bot.editMessageText('↩️ Видалення скасовано.', { chat_id: chatId, message_id: messageId });
+      bot.answerCallbackQuery(query.id, { text: 'Скасовано' });
+    }
   });
 
   bot.onText(/\/addpet/, (msg) => {
