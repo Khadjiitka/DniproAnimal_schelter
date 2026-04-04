@@ -107,7 +107,7 @@ Google Форма → Make.com → POST /api/webhook/makepet → БД + pets.jso
 ### 1. Клонуйте репозиторій
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DniproAnimal_schelter.git
+git clone https://github.com/Khadjiitka/DniproAnimal_schelter.git
 cd DniproAnimal_schelter
 ```
 
